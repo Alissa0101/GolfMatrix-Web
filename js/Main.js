@@ -1,3 +1,12 @@
+
+
+
+/////////////////////////
+/////LOCATION BRANCH/////
+/////////////////////////
+
+
+
 //A grid is 2D array
 //X axis (left to right) is the swing strength. Pitch, Half, 3/4, Full
 //Y axis (top to bottom) is the type of club
