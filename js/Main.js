@@ -62,7 +62,7 @@ targetTotal = document.getElementById("input_total").value
 carryClosest = getClosestCells(grid_carry, targetCarry);
 totalClosest = getClosestCells(grid_total, targetTotal);
 
-displayClosest(carryClosest, totalClosest);
+outputBoxText.innerHTML = displayClosest(carryClosest, totalClosest);
 
 function generateGrid(gridX, gridY){
     let grid = []
@@ -260,5 +260,6 @@ function displayClosest(carry, total){
     for(let i = 0; i < total.length; i++){
         displayString += total[i].club + ": " + total[i].swing + " (" + total[i].dist + ")" + "<br/>"
     }
-    outputBoxText.innerHTML = displayString
+    //outputBoxText.innerHTML = displayString
+    return displayString
 }
