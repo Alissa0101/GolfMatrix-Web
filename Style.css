@@ -1,0 +1,53 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-size: 20px;
+}
+
+h1{
+    font-size: 24px;
+}
+
+.grid{
+    height: 0px;
+}
+
+#gridRow{
+    display: flex;
+}
+
+.distanceValue{
+    width: 65px;
+    height: 25px;
+    text-align: center;
+}
+
+#YName{
+    width: 65px;
+    text-align: center;
+}
+
+#XName{
+    width: 65px;
+    text-align: center;
+}
+
+#outputBoxText{
+    font-size: 32px;
+}
+
+#grid_total_hide{
+    margin-left: 150px;
+}
+
+#grid_carry_hide{
+    margin-left: 2px;
+}
+
+.gridHideButton{
+    width: 100px;
+    background-color: rgb(185, 185, 185);
+    text-align: center;
+    padding-bottom: 5px;
+    border-radius: 5px;
+}
