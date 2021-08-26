@@ -101,7 +101,7 @@ function hideShowGrid(gridName){
     let carryGridElement = document.getElementById("grid_carry_inner");
     let totalGridElement = document.getElementById("grid_total_inner");
 
-     if(carryOpen == true &&  totalOpen == true){
+     if(carryOpen == true && totalOpen == true){
         if(gridName == "grid_carry"){
             totalGridElement.style = "visibility:hidden"
             totalOpen = false;
@@ -109,6 +109,14 @@ function hideShowGrid(gridName){
             carryGridElement.style = "visibility:hidden"
             carryOpen = false;
         }
+     }
+
+     let distances = document.getElementById("holeDistancesDiv");
+
+     if(carryOpen == true || totalOpen == true){
+        distances.style = "visibility:hidden"
+     } else{
+        distances.style = "visibility:visible"
      }
 
 }
