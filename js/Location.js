@@ -21,24 +21,19 @@ courses.push(maningsHeath)
 console.log(courses)
 
 
-document.write("<div id='holeDistancesDiv'><br><br><button onClick='getLocation()'>Update Location</button>")
-document.write("<p id='holeDistances'>Distance to holes:<br>")
-courses.forEach(course => {
-    course.holes.forEach(hole => {
-        document.write("Hole: " + hole.number + " Distance: "+hole.dist+"<br>")
-    });
-});
+document.write("<div id='holeDistancesDiv'><br><br><button class='gridHideButton' onClick='getLocation()'>Update</button><button class='gridHideButton' onClick='hideLocation()'>< Back</button>")
+document.write("<p id='holeDistances'>Press the 'Update' button to start<br>")
 document.write("</p></div>")
 
 function updateDistances(loc){
     console.log(loc.coords)
     let distanceText = document.getElementById("holeDistances")
-    distanceText.innerHTML = "Distance to holes:<br>"
+    distanceText.innerHTML = "";
     courses.forEach(course => {
         course.holes.forEach(hole => {
             let distance = calcCrow(hole.lat, hole.long, loc.coords.latitude, loc.coords.longitude)
             hole.dist = Math.round(kmToYards(distance));
-            distanceText.innerHTML += "<h1>Hole: " + hole.number + " Distance: "+hole.dist+" Yards</h1><br>"
+            distanceText.innerHTML += "<h1 class='closestTitle'>Hole: " + hole.number + "<br> Distance: "+hole.dist+"Y</h1><br>"
             let closestCarry = getClosestCells(grid_carry, hole.dist)
             let closestTotal = getClosestCells(grid_total, hole.dist)
 

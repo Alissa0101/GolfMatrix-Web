@@ -45,6 +45,20 @@ if(localStorage.getItem("grid_total") == undefined){
 
 document.write(createInput())
 document.write(createOutputBox())
+
+document.write("<div id='distanceSelect'></div>");
+let distanceSelectElem = document.getElementById('distanceSelect');
+let distanceInputCarryElem = document.getElementById('distanceInputCarry');
+let distanceInputTotalElem = document.getElementById('distanceInputTotal');
+document.write("<button id='showLocationButton' class='gridHideButton showLocation' onClick='showLocation()'>Location</button>");
+let showLocationButton = document.getElementById('showLocationButton');
+let outputBoxElem = document.getElementById('outputBox');
+
+distanceSelect.appendChild(distanceInputCarryElem)
+distanceSelect.appendChild(distanceInputTotalElem)
+distanceSelect.appendChild(outputBoxElem)
+distanceSelect.appendChild(showLocationButton)
+
 document.write(gridToDocumentString(grid_carry, grid_X_Keys, grid_Y_Keys, "grid_carry"))
 document.write(gridToDocumentString(grid_total, grid_X_Keys, grid_Y_Keys, "grid_total"))
 
@@ -64,6 +78,8 @@ totalClosest = getClosestCells(grid_total, targetTotal);
 
 outputBoxText.innerHTML = displayClosest(carryClosest, totalClosest);
 
+
+
 function generateGrid(gridX, gridY){
     let grid = []
     for(let y = 0; y < gridY.length; y++){
@@ -77,55 +93,36 @@ function generateGrid(gridX, gridY){
     return grid
 }
 
-function hideShowGrid(gridName){
-    let gridElement = document.getElementById(gridName+"_inner");
+function showGrid(gridName){
+    distanceSelectElem.style = "visibility:hidden"
+    let gridElem = document.getElementById("gridDiv_"+gridName)
+    gridElem.style = "visibility:visible"
+}
 
-    if(gridElement.style.visibility == "hidden"){
-        gridElement.style = "visibility:visible"
-        if(gridName == "grid_carry"){
-            carryOpen = true;
-        } else if(gridName == "grid_total"){
-            totalOpen = true;
-        }
-    } else {
-        gridElement.style = "visibility:hidden"
-        if(gridName == "grid_carry"){
-            carryOpen = false;
-        } else if(gridName == "grid_total"){
-            totalOpen = false;
-        }
-    }
+function hideGrid(gridName){
+    distanceSelectElem.style = "visibility:visible"
+    let gridElem = document.getElementById("gridDiv_"+gridName)
+    gridElem.style = "visibility:hidden"
+}
 
-    console.log(carryOpen, totalOpen)
+function showLocation(){
+    distanceSelectElem.style = "visibility:hidden"
+    let locationElem = document.getElementById("holeDistancesDiv")
+    locationElem.style = "visibility:visible"
+}
 
-    let carryGridElement = document.getElementById("grid_carry_inner");
-    let totalGridElement = document.getElementById("grid_total_inner");
-
-     if(carryOpen == true && totalOpen == true){
-        if(gridName == "grid_carry"){
-            totalGridElement.style = "visibility:hidden"
-            totalOpen = false;
-        } else if(gridName == "grid_total"){
-            carryGridElement.style = "visibility:hidden"
-            carryOpen = false;
-        }
-     }
-
-     let distances = document.getElementById("holeDistancesDiv");
-
-     if(carryOpen == true || totalOpen == true){
-        distances.style = "visibility:hidden"
-     } else{
-        distances.style = "visibility:visible"
-     }
-
+function hideLocation(){
+    distanceSelectElem.style = "visibility:visible"
+    let locationElem = document.getElementById("holeDistancesDiv")
+    locationElem.style = "visibility:hidden"
 }
 
 function gridToDocumentString(grid, gridX, gridY, gridName){
-    let gridStr = "<div class='grid'>"
-    gridStr += "<p class='gridHideButton' id='"+gridName+"_hide' onclick="+'hideShowGrid("'+gridName+'")>'+gridName+" <p>"
-    gridStr += "<div id='"+gridName+"_inner' style='visibility:hidden'>"
-    gridStr += "<h1>"+gridName+"</h1>"
+    let gridStr = "<div id='gridDiv_"+gridName+"' class='grid'>"
+    gridStr += "<h1 class='gridTitle'>"+gridName.replace('grid_', '')+"</h1>"
+    gridStr += "<button class='gridHideButton' onClick='hideGrid("+'"'+gridName+'"'+")'>< Back</button>"
+    gridStr += "<div id='"+gridName+"_inner' style='visibility:'>"
+    
     gridStr += "<input type='text' id='XName' value='' style='visibility:hidden'></input>"
     
     for(let x = 0; x < gridX.length; x++){
@@ -144,7 +141,7 @@ function gridToDocumentString(grid, gridX, gridY, gridName){
 
 function createOutputBox(){
     let boxStr = ""
-    boxStr += "<div class='outputBox'>"
+    boxStr += "<div id='outputBox' class='outputBox'>"
     boxStr += "<p id='outputBoxText'>Carry:<br/><br/>Total:</p>"
     boxStr += "</div>"
     return boxStr
@@ -152,8 +149,8 @@ function createOutputBox(){
 
 function createInput(){
     let inputStr = ""
-    inputStr += "Carry: <input pattern='[0-9]*' type='text' id='input_carry' value='0'></input><br/>"
-    inputStr += "Total: <input pattern='[0-9]*' type='text' id='input_total' value='0'></input><br/>"
+    inputStr += "<div id='distanceInputCarry' class='distanceInput'><p>Carry<button class='gridHideButton' onClick='showGrid("+'"grid_carry"'+")'>Edit</button></p><input pattern='[0-9]*' type='text' id='input_carry' value='75'></input></div><br/>"
+    inputStr += "<div id='distanceInputTotal' class='distanceInput'><p>Total<button class='gridHideButton' onClick='showGrid("+'"grid_total"'+")'>Edit</button></p><input pattern='[0-9]*' type='text' id='input_total' value='75'></input></div><br/>"
     //inputStr += "Plus: <input type='text' id='input_plus' value='0'></input><br/>"
     //inputStr += "Minus: <input type='text' id='input_minus' value='0'></input><br/><br/>"
     return inputStr
@@ -172,7 +169,7 @@ function setupInputListners(){
         carryClosest = getClosestCells(grid_carry, targetCarry);
         totalClosest = getClosestCells(grid_total, targetTotal);
 
-        displayClosest(carryClosest, totalClosest);
+        outputBoxText.innerHTML = displayClosest(carryClosest, totalClosest);
 
     });
 
@@ -182,7 +179,7 @@ function setupInputListners(){
         carryClosest = getClosestCells(grid_carry, targetCarry);
         totalClosest = getClosestCells(grid_total, targetTotal);
 
-        displayClosest(carryClosest, totalClosest);
+        outputBoxText.innerHTML = displayClosest(carryClosest, totalClosest);
 
     });
 
@@ -254,16 +251,17 @@ function getClosestCells(grid, target){
             closest.push({'club': rowName, 'swing': "Full", 'dist': row['Full']})
         }
     }
+    console.log(closest)
     return closest;
 }
 
 function displayClosest(carry, total){
-    let displayString = "Carry: <br/>"
+    let displayString = "<p class='closestTitle'>Carry</p>"
     for(let i = 0; i < carry.length; i++){
         displayString += carry[i].club + ": " + carry[i].swing + " (" + carry[i].dist + ")" + "<br/>"
     }
 
-    displayString += "<br/><br/>Total: <br/>"
+    displayString += "<br/><p class='closestTitle'>Total</p>"
 
     for(let i = 0; i < total.length; i++){
         displayString += total[i].club + ": " + total[i].swing + " (" + total[i].dist + ")" + "<br/>"

@@ -2,18 +2,42 @@
     margin: 0px;
     padding: 0px;
     font-size: 20px;
+    color: #5c6366;
+    font-family: "Roboto";
+    font-weight: 400;
 }
 
 h1{
     font-size: 24px;
 }
 
+input{
+    border: none;
+    border: 1px solid #5c6366;
+    border-radius: 0px;
+}
+
 .grid{
-    height: 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
 }
 
 #gridRow{
     display: flex;
+}
+
+.gridTitle{
+    position: absolute;
+    font-size: 64px;
+    text-align: center;
+    top: -100px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding-bottom: 5px;
+    border-bottom: 2px solid #dfdfdf;
 }
 
 .distanceValue{
@@ -33,7 +57,7 @@ h1{
 }
 
 #outputBoxText{
-    font-size: 32px;
+    font-size: 28px;
 }
 
 #grid_total_hide{
@@ -46,8 +70,62 @@ h1{
 
 .gridHideButton{
     width: 100px;
-    background-color: rgb(185, 185, 185);
+    background-color: #dfdfdf;
     text-align: center;
+    border: none;
     padding-bottom: 5px;
     border-radius: 5px;
+    margin-left: 15px;
+    position: relative;
+    top: -7px;
+}
+
+#holeDistancesDiv{
+    visibility: hidden;
+    position: absolute;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+}
+
+#holeDistances{
+    height: 0px;
+}
+
+.distanceInput{
+    vertical-align: middle;
+    width: 85%;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.distanceInput > p {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.distanceInput > input {
+    height: 50px;
+    font-size: 24px;
+    width: 98%;
+    background-color: #dfdfdf;
+    border:none;
+}
+
+.outputBox{
+    width: 85%;
+    margin: auto;
+}
+
+.closestTitle{
+    font-size: 38px;
+    border-bottom: 2px solid #dfdfdf;
+    width: 98%;
+    margin-bottom: 10px;
+}
+
+.showLocation{
+    top: 25px;
 }
