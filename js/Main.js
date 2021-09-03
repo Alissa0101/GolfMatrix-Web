@@ -115,6 +115,8 @@ function hideLocation(){
     distanceSelectElem.style = "visibility:visible"
     let locationElem = document.getElementById("holeDistancesDiv")
     locationElem.style = "visibility:hidden"
+    let distanceText = document.getElementById("holeDistances")
+    distanceText.innerHTML = "Press the 'Update' button to start<br>"
 }
 
 function gridToDocumentString(grid, gridX, gridY, gridName){

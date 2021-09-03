@@ -114,6 +114,11 @@ input{
     border:none;
 }
 
+#distanceSelect{
+    position: relative;
+    top: -25px;
+}
+
 .outputBox{
     width: 85%;
     margin: auto;
