@@ -26,7 +26,7 @@ let totalOpen = false;
 
 
 if(localStorage.getItem("grid_carry") == undefined){
-    localStorage.setItem("grid_carry", "{\"0_60deg\":{\"Pitch\":8,\"Half\":20,\"3/4\":36,\"Full\":52},\"1_SW\":{\"Pitch\":13,\"Half\":31,\"3/4\":51,\"Full\":60},\"2_GW\":{\"Pitch\":17,\"Half\":41,\"3/4\":66,\"Full\":86},\"3_PW\":{\"Pitch\":21,\"Half\":58,\"3/4\":81,\"Full\":105},\"4_9\":{\"Pitch\":6,\"Half\":41,\"3/4\":80,\"Full\":128},\"5_8\":{\"Pitch\":15,\"Half\":79,\"3/4\":121,\"Full\":150},\"6_7\":{\"Pitch\":24,\"Half\":86,\"3/4\":147,\"Full\":159},\"7_6\":{\"Pitch\":21,\"Half\":91,\"3/4\":162,\"Full\":170},\"8_5\":{\"Pitch\":26,\"Half\":105,\"3/4\":170,\"Full\":184},\"9_4h\":{\"Pitch\":118,\"Half\":119,\"3/4\":176,\"Full\":0},\"10_3h\":{\"Pitch\":127,\"Half\":128,\"3/4\":178,\"Full\":195},\"11_3w\":{\"Pitch\":193,\"Half\":194,\"3/4\":195,\"Full\":210},\"12_D\":{\"Pitch\":226,\"Half\":227,\"3/4\":228,\"Full\":229}}")
+    localStorage.setItem("grid_carry", "{\"0_60deg\":{\"Pitch\":null,\"Half\":20,\"3/4\":35,\"Full\":60},\"1_SW\":{\"Pitch\":null,\"Half\":30,\"3/4\":50,\"Full\":70},\"2_GW\":{\"Pitch\":null,\"Half\":50,\"3/4\":80,\"Full\":100},\"3_PW\":{\"Pitch\":null,\"Half\":60,\"3/4\":100,\"Full\":120},\"4_9\":{\"Pitch\":null,\"Half\":80,\"3/4\":90,\"Full\":130},\"5_8\":{\"Pitch\":null,\"Half\":80,\"3/4\":120,\"Full\":150},\"6_7\":{\"Pitch\":null,\"Half\":90,\"3/4\":145,\"Full\":160},\"7_6\":{\"Pitch\":null,\"Half\":100,\"3/4\":160,\"Full\":170},\"8_5\":{\"Pitch\":null,\"Half\":110,\"3/4\":170,\"Full\":185},\"9_4h\":{\"Pitch\":null,\"Half\":120,\"3/4\":175,\"Full\":195},\"10_3h\":{\"Pitch\":null,\"Half\":125,\"3/4\":180,\"Full\":200},\"11_3w\":{\"Pitch\":null,\"Half\":null,\"3/4\":195,\"Full\":210},\"12_D\":{\"Pitch\":null,\"Half\":null,\"3/4\":null,\"Full\":230}}")
     grid_carry = generateGrid(grid_X_Keys, grid_Y_Keys)
     console.log("made new grid")
 } else{
@@ -35,7 +35,7 @@ if(localStorage.getItem("grid_carry") == undefined){
 }
 
 if(localStorage.getItem("grid_total") == undefined){
-    localStorage.setItem("grid_total", "{\"0_60deg\":{\"Pitch\":8,\"Half\":20,\"3/4\":35,\"Full\":50},\"1_SW\":{\"Pitch\":13,\"Half\":31,\"3/4\":51,\"Full\":59},\"2_GW\":{\"Pitch\":18,\"Half\":42,\"3/4\":66,\"Full\":86},\"3_PW\":{\"Pitch\":23,\"Half\":60,\"3/4\":82,\"Full\":106},\"4_9\":{\"Pitch\":7,\"Half\":48,\"3/4\":88,\"Full\":137},\"5_8\":{\"Pitch\":19,\"Half\":90,\"3/4\":134,\"Full\":162},\"6_7\":{\"Pitch\":28,\"Half\":99,\"3/4\":161,\"Full\":171},\"7_6\":{\"Pitch\":26,\"Half\":105,\"3/4\":178,\"Full\":186},\"8_5\":{\"Pitch\":35,\"Half\":124,\"3/4\":190,\"Full\":202},\"9_4h\":{\"Pitch\":132,\"Half\":133,\"3/4\":193,\"Full\":0},\"10_3h\":{\"Pitch\":147,\"Half\":148,\"3/4\":199,\"Full\":216},\"11_3w\":{\"Pitch\":214,\"Half\":215,\"3/4\":216,\"Full\":231},\"12_D\":{\"Pitch\":249,\"Half\":250,\"3/4\":251,\"Full\":252}}")
+    localStorage.setItem("grid_total", "{\"0_60deg\":{\"Pitch\":null,\"Half\":20,\"3/4\":35,\"Full\":50},\"1_SW\":{\"Pitch\":null,\"Half\":30,\"3/4\":50,\"Full\":70},\"2_GW\":{\"Pitch\":null,\"Half\":50,\"3/4\":80,\"Full\":100},\"3_PW\":{\"Pitch\":null,\"Half\":60,\"3/4\":100,\"Full\":120},\"4_9\":{\"Pitch\":null,\"Half\":85,\"3/4\":105,\"Full\":140},\"5_8\":{\"Pitch\":null,\"Half\":90,\"3/4\":135,\"Full\":160},\"6_7\":{\"Pitch\":null,\"Half\":100,\"3/4\":160,\"Full\":170},\"7_6\":{\"Pitch\":null,\"Half\":110,\"3/4\":175,\"Full\":185},\"8_5\":{\"Pitch\":null,\"Half\":125,\"3/4\":190,\"Full\":200},\"9_4h\":{\"Pitch\":null,\"Half\":135,\"3/4\":195,\"Full\":210},\"10_3h\":{\"Pitch\":null,\"Half\":150,\"3/4\":200,\"Full\":215},\"11_3w\":{\"Pitch\":null,\"Half\":null,\"3/4\":216,\"Full\":230},\"12_D\":{\"Pitch\":null,\"Half\":null,\"3/4\":null,\"Full\":250}}")
     grid_total = generateGrid(grid_X_Keys, grid_Y_Keys)
     console.log("made new grid")
 } else{
@@ -134,7 +134,12 @@ function gridToDocumentString(grid, gridX, gridY, gridName){
     for(let y = 0; y < gridY.length; y++){
         gridStr += "<div id='gridRow'> <input type='text' id='YName' name='" + y + "_" + gridY[y] + "' value='" + gridY[y] + "'></input>"
         for(let x = 0; x < gridX.length; x++){
-            gridStr += "<div id='entry'><input pattern='[0-9]*' class='distanceValue' id='"+gridName+"_distanceValue' type='text' name='" + x + ":" + y + "' value='" + grid[y + "_" + gridY[y]][gridX[x]] + "'></input></div>"
+            let value = grid[y + "_" + gridY[y]][gridX[x]];
+            console.log(value)
+            if(value == undefined){
+                value = "";
+            }
+            gridStr += "<div id='entry'><input pattern='[0-9]*' class='distanceValue' id='"+gridName+"_distanceValue' type='text' name='" + x + ":" + y + "' value='" + value + "'></input></div>"
         }
         gridStr += "</div>"
     }
@@ -224,7 +229,7 @@ function setupGridListners(gridName, grid){
 
 
 function getClosestCells(grid, target){
-    console.log("Looking for close cells")
+    //console.log("Looking for close cells")
     let closest = []
     target = parseInt(target)
     for(let i = 0; i < grid_Y_Keys.length; i++){
@@ -253,20 +258,36 @@ function getClosestCells(grid, target){
             closest.push({'club': rowName, 'swing': "Full", 'dist': row['Full']})
         }
     }
-    console.log(closest)
+    //console.log(closest)
     return closest;
+}
+
+function getDistanceFromClubAndSwing(grid, club, swing){
+    let dist = 0;
+    //console.log(grid);
+    let index = grid_Y_Keys.indexOf(club);
+    clubKey = index + "_" + club;
+    //console.log(clubKey, swing)
+    dist = grid[clubKey][swing]
+    return dist;
 }
 
 function displayClosest(carry, total){
     let displayString = "<p class='closestTitle'>Carry</p>"
     for(let i = 0; i < carry.length; i++){
-        displayString += carry[i].club + ": " + carry[i].swing + " (" + carry[i].dist + ")" + "<br/>"
+        if(carry[i].dist != 0){
+            let totalDist = getDistanceFromClubAndSwing(grid_total, carry[i].club, carry[i].swing);
+            displayString += carry[i].club + ": " + carry[i].swing + " (" + carry[i].dist + ")  > (" + totalDist + ")" + "<br/>"
+        }
+        
     }
 
     displayString += "<br/><p class='closestTitle'>Total</p>"
 
     for(let i = 0; i < total.length; i++){
-        displayString += total[i].club + ": " + total[i].swing + " (" + total[i].dist + ")" + "<br/>"
+        if(total[i].dist != 0){
+            displayString += total[i].club + ": " + total[i].swing + " (" + total[i].dist + ")" + "<br/>"
+        }
     }
     //outputBoxText.innerHTML = displayString
     return displayString
